@@ -1,0 +1,44 @@
+PLUGINS=@@PLUGINS@@
+
+all: myinfo.exe
+really-clean: clean
+
+myinfo.exe: index.php config.php RoadsendSupport.php $(PLUGINS)
+	@echo "* If this fails, please install roadsend PHP compiler"
+	pcc -s myinfo.exe -d 1 index.php config.php Roadsend/* $(PLUGINS)
+
+clean:
+	rm -vf *.sch *.heap *.o Plugins/*.[ouc]
+	@echo "**";
+	@echo "** type make really-clean to remove *all* files";
+	@echo "**";
+
+really-clean:
+	rm -vf *.exe*
+	@echo "all:" >Makefile
+	@echo "	@./configure" >>Makefile
+	@echo "	@echo 'Please re-run make'">>Makefile
+	@echo "	@exit 2;" >>Makefile
+	@echo "**";
+	@echo "** The directory is now really-clean :)";
+	@echo "**";
+
+help:
+	@echo
+	@echo '+-----[ MyInfo ]-------------------------------------------------+'
+	@echo '|                                                                |'
+	@echo '| To use this application, install Roadsend and then type "make" |'
+	@echo '|    ... make sure you edit this file (Makefile) and change the  |'
+	@echo '|    first line if you want to add or remove any plugins also    |'
+	@echo '|    make sure you edit config.php!                              |'
+	@echo '|                                                                |'
+	@echo '+-----[ MyInfo ]-------------------------------------------------+'
+	@echo
+	@echo '       http://mybank.sharesource.org/'
+	@echo
+	@echo '   # make               * Builds myinfo.exe';
+	@echo '   # make clean         * Removes tmp. files from directory,'
+	@echo '                          Still allows myinfo.exe to run'
+	@echo '   # make really-clean  * Removes all compiled files from directory'
+	@echo
+	@echo

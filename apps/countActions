@@ -1,0 +1,4 @@
+grep "addRequest" . -R | grep -v '^function' | grep -v '[\s\t]*\*' | grep -v ./admin/  | grep -v ./backend/ >tmp.actions
+cat tmp.actions
+wc tmp.actions -l
+rm -v tmp.actions

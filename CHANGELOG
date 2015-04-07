@@ -1,0 +1,69 @@
+
+[ version 0.11 ]  ( Tuesday  23rd Jan, 2011 )
+  * [Bug #3] Check correctly to see if clients are logged on
+
+[ version 0.10 ]  ( Tuesday  23rd Jan, 2011 )
+  * [Bug #2] Files had inconsistent '<?php' opening tags.
+    - now that this is closed, all people should be able to install MyBanco
+      without changing configuration options.
+  * Added the 'packages' application. Sneak peek at upcoming features :)
+  * Cleaned up a lot of code :)
+  * 49 files changed, 694 insertions(+), 152 deletions(-)
+
+[ version 0.09 ]  ( Tuesday  22nd April, 2009 )
+  * [Bug #1] Fixed MySQL issue with installer.
+  * Added 'Phone Home' feature, so we know how many installs have been done.
+    - This will enable other features down the line, such as email
+      notification when there is a new release.
+
+[ version 0.05 ]  ( Saturday  9th August, 2008 )
+  * Fixed missing logout link.
+  * Added the installer.
+
+[ version 0.04 ]  ( Saturday  4th August, 2008 )
+  * Making sure that data sent to MyInfo is always unescaped.
+  * Fixing a MyInfo server was not always selected ... causing an error
+
+[ version 0.03 ]  ( Saturday 26th July, 2008 )
+
+  * BUG FIX RELEASE!
+    * Notification if a new account cannot be created in admin panel
+    * Remembered to add the function to add new bank accounts
+
+  * Included a file ( import.sql ) to import for MyInfo
+
+[ version 0.02 ]  ( Thursday 24th July, 2008 )
+
+  * Initial release of MyBanco
+
+
+                      $$$$
+                      $$$$
+           $$$$$$$$$$$$$$$$$
+       $$$$$$$$$$$$$$$$$$$$$$
+     $$$$$$$       $$$$    $$$$$$$$
+   $$$$$$          $$$$        $$$$$$$
+  $$$$$$           $$$$          $$$$$$
+  $$$$$$           $$$$
+  $$$$$$           $$$$
+   $$$$$$          $$$$
+    $$$$$$$$      $$$$
+      $$$$$$$$$$$$$$$
+          $$$$$$$$$$$$$$$$$$
+                 $$$$$$$$$$$$$$$$
+                      $$$$ $$$$$$$$$$
+                      $$$$       $$$$$$$
+                      $$$$          $$$$$$
+                      $$$$           $$$$$$
+$$$$$$$            $$$$          $$$$$$$
+ $$$$$$            $$$$          $$$$$$$
+  $$$$$$$          $$$$        $$$$$$$$
+   $$$$$$$$       $$$$      $$$$$$$$
+      $$$$$$$$$$$$$$$$$$$$$$$$
+          $$$$$$$$$$$$$$$$$$$
+                  $$$$$$$$
+                      $$$$
+                      $$$$
+
+
+

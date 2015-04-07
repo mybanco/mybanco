@@ -1,0 +1,39 @@
+#!/bin/sh
+echo "Making sure all plugins exist ...";
+
+echo '#!/bin/sh' >.plugins.sh
+php -r ' 
+	require "config.php"; 
+	echo "PLUGINS=\""; 
+	foreach ($CONFIG["plugins"] as $p) { 
+		echo "Plugins/$p.php "; 
+	}
+	echo "\";\n";' >> .plugins.sh
+
+LINE=`php -r ' 
+	require "config.php"; 
+	echo "PLUGINS="; 
+	foreach ($CONFIG["plugins"] as $p) { 
+		echo "Plugins/$p.php "; 
+	}'`
+
+echo 'export PLUGINS' >> .plugins.sh
+source .plugins.sh
+rm -vf .plugins.sh;
+echo '   ^ it was a temp file ';
+echo '  ^^ so have no fear :)';
+echo
+
+for x in $PLUGINS; do
+	echo -n "Checking if $x exists ...";
+	if [ ! -e $x ];
+	then
+		echo " FAIL";
+		exit 2;
+	else
+		echo "  OK ";
+	fi;
+done
+
+echo "Generating Makefile ...";
+cat Makefile.template | sed -e "s|^PLUGINS=\(.*\)$|$LINE|" >Makefile

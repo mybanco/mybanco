@@ -1,0 +1,11 @@
+RewriteEngine on
+RewriteCond %{REQUEST_URI}      !Skins/(.*)$
+RewriteCond %{REQUEST_URI}      !Images/(.*)$
+RewriteCond %{REQUEST_URI}      !i/
+RewriteCond %{REQUEST_URI}      !admin
+RewriteCond %{REQUEST_URI}      !home
+RewriteCond %{REQUEST_URI}      !install/
+RewriteCond %{REQUEST_URI}      !backend/(.*)$
+RewriteCond %{REQUEST_URI}      !docs/
+RewriteRule (.*)                index.php?%{QUERY_STRING}&path=$1 [L]
+
