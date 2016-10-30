@@ -158,6 +158,7 @@ exit;
 
 // The error Handler
 function myErrorHandler($errno, $errstr, $errfile, $errline) {
+	if ($errno == 8192) return false;
 	if ($errno < 9) return false;
 	global $INI;
 	outputINI($INI, Array('code' => 500, 'human' => json_encode(
