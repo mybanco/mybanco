@@ -51,7 +51,7 @@ function page1 () {
 	elseif (file_exists('./LICENSE'))	$file = './LICENSE';
 	else die('Missing license file.');
 	template_Header( "Install &amp; Configure MyBanco" );
-	
+
 	echo '
 <br /><br />
 
@@ -75,20 +75,20 @@ Get me started on the installation and configuration script!
 }
 
 function page2 ($fail = false) {
-	
+
 	if (file_exists('../LICENSE'))		$file = '../LICENSE';
 	elseif (file_exists('./LICENSE'))	$file = './LICENSE';
 	else die('Missing license file. Please download the AGPL from http://www.gnu.org/licenses/agpl-3.0.txt and place it in the install/ folder. Make sure it is called \' LICENSE \'');
-	
+
 	if (md5_file($file) <> "73f1eb20517c55bf9493b7dd6e480788")
 		die('Invalid license file. Please download the AGPL from http://www.gnu.org/licenses/agpl-3.0.txt and place it in the install/ folder. Make sure it is called \' LICENSE \'');
-	
+
 	template_Header( "Install &amp; Configure MyBanco" );
-	
+
 	if ($fail == true) {
 		echo '<pre style="color: red;">Please select \'I Agree\' in order to continue installation.</pre>';
 	}
-	
+
 echo '
 <script>
 function checkCheckBox(f) {
@@ -117,12 +117,12 @@ I accept: <input type="checkbox" value="0" name="agree">
 
 function page3 () {
 	// Check that the system has the correct ingredients :)
-	
+
 	if (!isset($_POST['agree']) or $_POST['agree'] != '0') {
 		page2(true); // fail.
 		exit;
 	}
-	
+
 	template_Header( 'System Check' );
 	$f1 = checkSystem_modules (array (
 		'json' => 'JavaScript Object Notation',
@@ -232,13 +232,13 @@ return $fail;
 //--
 function page4($invalid='') {
 	template_Header("System Configuration");
-	
+
 	if (is_array($invalid)) {
 		echo '<pre>';
 		print_r($invalid);
 		echo '</pre>';
 	}
-	
+
 	echo '
 <form action="./?step=4" method="POST">
 <br />
@@ -257,45 +257,45 @@ function page4($invalid='') {
 	
 	<tr class="rowB">
 		<td width="25%"><strong>MySQL Host</strong></td>
-		<td><input name="mysql-host" value="\';
-		if (isset($_POST[\'mysql-host\']))
-			echo htmlspecialchars($_POST[\'mysql-host\']);
+		<td><input name="mysql-host" value="';
+		if (isset($_POST['mysql-host']))
+			echo htmlspecialchars($_POST['mysql-host']);
 		
-		echo \'"></td>
+		echo '"></td>
 	</tr>
 	<tr class="rowB">
 		<td width="25%"><strong>MySQL Username</strong></td>
 		<td><input name="mysql-user" value="';
 		if (isset($_POST['mysql-user']))
 			echo htmlspecialchars($_POST['mysql-user']);
-		
+
 		echo '"></td>
 	</tr>
 	<tr class="rowA">
 		<td width="25%"><strong>MySQL Password</strong></td>
 		<td><input name="mysql-pass" value="';
-		
+
 		if (isset($_POST['mysql-pass']))
 			echo htmlspecialchars($_POST['mysql-pass']);
-		
+
 		echo '"></td>
 	</tr>
 	<tr class="rowB">
 		<td width="25%"><strong>MySQL Database</strong></td>
 		<td><input name="mysql-data" value="';
-		
+
 		if (isset($_POST['mysql-data']))
 			echo htmlspecialchars($_POST['mysql-data']);
-		
+
 		echo '"></td>
 	</tr>
 	<tr class="rowA">
 		<td width="25%"><strong>Country Name</strong></td>
 		<td><input name="country" value="';
-		
+
 		if (isset($_POST['country']))
 			echo htmlspecialchars($_POST['country']);
-		
+
 		echo '"></td>
 	</tr>
 	
@@ -317,7 +317,7 @@ function page4($invalid='') {
 		<td><input name="bank" style="width: 50%;" value="';
 		if (isset($_POST['bank']))
 			echo htmlspecialchars($_POST['bank']);
-		
+
 		echo '"></td>
 	</tr>
 
@@ -340,7 +340,7 @@ function page4($invalid='') {
 		<td><input name="myinfo" style="width: 75%;" value="';
 		if (isset($_POST['mysql-user']))
 			echo htmlspecialchars($_POST['myinfo']);
-		
+
 		echo '"></td>
 	</tr>
 	
@@ -388,23 +388,23 @@ function page5() {
 	global $CONFIG, $versionCheckURL, $currentVersion;
 	$CONFIG['myinfo-servers'] = array($versionCheckURL);
 	require '../libs/MyInfo-Client.php';
-	
+
 	$update['version'] = $currentVersion;
 	if ($update['version'] <> $currentVersion) {
 		echo '<h1>There is a new version availible!</h1>';
 		echo "Version {$update['version']} was released " . date('r', $update['released']);
 		echo '<ul>';
-		
+
 		if ($update['anouncement_url']) {
 			echo '<li>For the release announcement, please go to <a href="' . $update['anouncement_url'] . '">' . $update['anouncement_url'] . '</a>';
 		}
-		
+
 		if ($update['update_url']) {
 			$url = $update['update_url'];
 			$url = str_replace("{VERSION}", $currentVersion, $url);
 			echo '<li>For the changelog since this release, please goto <a href="' . $url . '">' . $url . '</a>';
 		}
-		
+
 		if ($update['url']) {
 			echo '<li>To visit the MyBanco website, please goto <a href="' . $update['url'] . '">' . $update['url'] . '</a>';
 		}
@@ -412,7 +412,7 @@ function page5() {
 	} else {
 		echo "<h3>You are using the latest version!</h3>";
 	}
-	
+
 	echo "<h1>Viewing the data you send to us</h1>";
 	echo 'When you enable statistics tracking, you will send usage details to our server. For full transperency, we allow you to view the information we keep ';
 	echo 'about your installation. To view this information, please goto the following URL:<br /><br />';
@@ -421,30 +421,30 @@ function page5() {
 	echo "<a href='$url'>$url</a><br /><br />";
 	echo "and use the following key to view: <strong>{$update['machineKey']}</strong>";
 	echo "<h1>Installing Database...</h1>";
-	
+
 	// --
 	// -- Check the MySQL data :D
 	// --
 	if ($_POST['mysql-user']<>"" AND !preg_match('/^[a-z0-9A-Z\-\_@]{2,16}$/', $_POST['mysql-user']))
 		$invalid[] = 'MySQL Username is invalid';
-	
+
 	if ($_POST['mysql-pass']<>"" AND !preg_match('/^[a-z0-9A-Z\-\_]{2,16}$/', $_POST['mysql-pass']))
 		$invalid[] = 'MySQL Password is invalid';
-	
+
 	if ($_POST['mysql-data']<>"" AND !preg_match('/^[a-z0-9\-\_]{2,16}$/', $_POST['mysql-data']))
 		$invalid[] = 'MySQL Databse is invalid';
-	
+
 	if (!preg_match('/^[a-z0-9A-Z\'\s]{2,32}$/', $_POST['country']))
 		$invalid[] = 'Country name is invalid';
-	
+
 	if (!preg_match('/^[a-z0-9A-Z\'\s]{2,32}$/', $_POST['bank']))
 		$invalid[] = 'Bank name is invalid';
-	
+
 	if (!preg_match('|^http(s)?://(.*)/|', $_POST['myinfo']))
 		$invalid[] = 'MyInfo URL invalid';
-	
+
 	if (is_array($invalid)) page4($invalid);
-	
+
 	echo '<pre>';
 	echo "[ MySQL Database ...]\n";
 	echo 'Connecting to MySQL ... ';
@@ -452,43 +452,43 @@ function page5() {
 		echo "FAIL!";
 		exit;
 	} else  echo "DONE!\n";
-	
+
 	echo 'Selecting database  ... ';
 	if (!mysql_select_db($_POST['mysql-data'])) {
 		echo "FAIL!";
 		exit;
 	} else  echo "DONE!\n";
-	
+
 	echo 'Opening import.sql  ... ';
 	if (!file_exists('import.sql')) {
 		echo "FAIL! [File not found]";
 		exit;
 	}
-	
+
 	$sql = file('import.sql');
 	if (!is_array($sql)) {
 		echo "FAIL!";
 		exit;
 	} else  echo "DONE!\n\n\n";
-	
+
 	foreach ($sql as &$statement) {
 		if ($statement == "")
 			continue;
 		if ($statement == "\n")
 			continue;
 		echo substr($statement,0,64), "...\n";
-		
+
 		echo "   => Issueing MySQL Query ...";
 		$res = mysql_query($statement);
 		if ($res == "") {
 			echo "FAIL!";
 			exit;
 		} else  echo "DONE!\n";
-		
-		
+
+
 		echo "\n";
 	}
-	
+
 	echo 'Adding machine ID and machine secret to `config` table... ';
 	$res = mysql_query("INSERT INTO `config` (`item`, `value`) VALUES ('machineID',  '{$update['machineID']}');");
 	$res2= mysql_query("INSERT INTO `config` (`item`, `value`) VALUES ('machineKey', '{$update['machineKey']}');");
@@ -497,7 +497,7 @@ function page5() {
 		echo "FAIL!\n";
 		exit;
 	} else  echo "DONE!\n\n";
-	
+
 	echo 'Generating "../backend/config.php" ... ';
 	$config = "<?php
 //---
@@ -542,13 +542,13 @@ global \$SYSTEM, \$CONFIG;
 ?>";
 	echo "DONE!\n";
 	echo 'Writting   "../backend/config.php" ... ';
-	
+
 	$return = file_put_contents( "../backend/config.php", $config );
 	if ($return <> true) {
 		echo "FAIL!";
 		exit;
 	} else  echo "DONE!\n";
-	
+
 	$URL = dirname($_POST['myinfo']);
 	echo 'Generating "../config.php" ... ';
 	$config = "<?php
@@ -598,13 +598,13 @@ global \$SYSTEM, \$CONFIG;
 ?>";
 	echo "DONE!\n";
 	echo 'Writting   "../config.php" ... ';
-	
+
 	$return = file_put_contents( "../config.php", $config );
 	if ($return <> true) {
 		echo "FAIL!";
 		exit;
 	} else  echo "DONE!\n";
-	
+
 	echo "\n\n";
 }
 ?>
