@@ -389,11 +389,7 @@ function page5() {
 	$CONFIG['myinfo-servers'] = array($versionCheckURL);
 	require '../libs/MyInfo-Client.php';
 	
-	newRequest();
-	$server  = addRequest('usage', 'addNewServer');
-	$details = sendRequest();
-	
-	$update = &$details[$server];
+	$update['version'] = $currentVersion;
 	if ($update['version'] <> $currentVersion) {
 		echo '<h1>There is a new version availible!</h1>';
 		echo "Version {$update['version']} was released " . date('r', $update['released']);
