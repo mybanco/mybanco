@@ -89,7 +89,7 @@ if (!extension_loaded("mysql")) {
 //
 // OK, lets go connect to MySQL
 //
-$link = @mysql_connect('127.0.0.1', $CONFIG['mysql-user'], $CONFIG['mysql-pass']);
+$link = @mysql_connect($CONFIG['mysql-host'], $CONFIG['mysql-user'], $CONFIG['mysql-pass']);
 if (empty($link)) {
 	outputINI($INI, array('code' => 101));
 	exit;

@@ -256,6 +256,14 @@ function page4($invalid='') {
 	</tr>
 	
 	<tr class="rowB">
+		<td width="25%"><strong>MySQL Host</strong></td>
+		<td><input name="mysql-host" value="\';
+		if (isset($_POST[\'mysql-host\']))
+			echo htmlspecialchars($_POST[\'mysql-host\']);
+		
+		echo \'"></td>
+	</tr>
+	<tr class="rowB">
 		<td width="25%"><strong>MySQL Username</strong></td>
 		<td><input name="mysql-user" value="';
 		if (isset($_POST['mysql-user']))
@@ -444,7 +452,7 @@ function page5() {
 	echo '<pre>';
 	echo "[ MySQL Database ...]\n";
 	echo 'Connecting to MySQL ... ';
-	if (!mysql_connect('127.0.0.1', $_POST['mysql-user'], $_POST['mysql-pass'])) {
+	if (!mysql_connect($_POST['mysql-host'], $_POST['mysql-user'], $_POST['mysql-pass'])) {
 		echo "FAIL!";
 		exit;
 	} else  echo "DONE!\n";
@@ -510,6 +518,7 @@ global \$SYSTEM, \$CONFIG;
 //---
 //--- Please ensure this infomation is correct
 //---
+\$CONFIG['mysql-host'] = '{$_POST['mysql-host']}';
 \$CONFIG['mysql-user'] = '{$_POST['mysql-user']}';
 \$CONFIG['mysql-pass'] = '{$_POST['mysql-pass']}';
 \$CONFIG['mysql-data'] = '{$_POST['mysql-data']}'; //database
