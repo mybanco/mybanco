@@ -89,7 +89,7 @@ if (!extension_loaded("mysql")) {
 //
 // OK, lets go connect to MySQL
 //
-$link = @mysql_connect('127.0.0.1', $CONFIG['mysql-user'], $CONFIG['mysql-pass']);
+$link = @mysql_connect($CONFIG['mysql-host'], $CONFIG['mysql-user'], $CONFIG['mysql-pass']);
 if (empty($link)) {
 	outputINI($INI, array('code' => 101));
 	exit;
@@ -158,6 +158,7 @@ exit;
 
 // The error Handler
 function myErrorHandler($errno, $errstr, $errfile, $errline) {
+	if ($errno == 8192) return false;
 	if ($errno < 9) return false;
 	global $INI;
 	outputINI($INI, Array('code' => 500, 'human' => json_encode(
